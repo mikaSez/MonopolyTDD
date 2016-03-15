@@ -1,5 +1,4 @@
-import boardgame.monopoly.Player;
-
+import boardgame.monopoly.StandardPlayer;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -9,37 +8,37 @@ import org.junit.Test;
  */
 public class PlayerTest {
 
-    private Player player;
+    private StandardPlayer player;
 
 
     @Before
     public void setUp(){
-        player = new Player(10);
+        player = new StandardPlayer(10);
     }
 
 
     @Test
-    public void playerStartsAtZero(){
+    public void startsAtZero(){
         int pos = player.getPosition();
         Assert.assertEquals(0, pos);
     }
 
     @Test
-    public void playerMoves(){
+    public void moves(){
         player.move(5);
         int pos = player.getPosition();
         Assert.assertEquals(5, pos);
     }
 
     @Test
-    public void playerTurnsOnBoardLimits(){
+    public void turnsOnBoardLimits(){
         player.move(11);
         int pos = player.getPosition();
         Assert.assertEquals(1, pos);
     }
 
    @Test
-    public void playerTellsWennTurns(){
+    public void tellsWennTurns(){
        boolean noTurn = player.move(4);
        boolean turn = player.move(11);
 
@@ -48,11 +47,31 @@ public class PlayerTest {
    }
 
     @Test
-    public void playerStartMoney(){
+    public void startMoney(){
         long money = player.getMoney();
         Assert.assertEquals(1500, money);
     }
 
+   @Test
+    public void reduceMoney(){
+       player.deduct(1000l);
+       Assert.assertEquals(500l, player.getMoney());
+   }
+    @Test
+    public void addMoney(){
+        player.reward(1000l);
 
+        Assert.assertEquals(2500l, player.getMoney());
+    }
+
+    @Test
+    public void moneyIsInsufficient(){
+        boolean sufficient = player.deduct(1000l);
+        boolean insufficient = player.deduct(1000l);
+
+        Assert.assertTrue(sufficient);
+        Assert.assertFalse(insufficient);
+
+    }
 
 }

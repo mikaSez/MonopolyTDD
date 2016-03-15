@@ -15,7 +15,7 @@ public class Game {
         players = new ArrayList<Player>(nbPlayers);
         currentPlayerId = 0;
         for(int i=0; i<nbPlayers; i++){
-            players.add(new Player(boardSize));
+            players.add(new StandardPlayer(boardSize));
         }
         currentPlayer = players.get(currentPlayerId);
 
@@ -46,6 +46,12 @@ public class Game {
 
     public int getCurrentPlayerId() {
         return currentPlayerId+1;
+    }
+
+
+    public static void main(String[] args){
+        Game g = new Game(2, 12);
+
     }
 }
 

@@ -29,8 +29,4 @@ public class DiceTest {
         Assert.assertEquals(3.0d, fin, 0.2d);
     }
 
-
-
-
-
 }
